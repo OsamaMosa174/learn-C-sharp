@@ -105,6 +105,32 @@ class Program
                 break;
            
         }
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.WriteLine(i); 
+        }
+
+        Console.WriteLine("Another way");
+
+        Console.Write("Write a number");
+        int g = Convert.ToInt32(Console.ReadLine());
+        while (g <= 5)
+        {
+            Console.WriteLine(g); 
+            g++;
+        }
+
+        Console.WriteLine("Another way");
+
+        int i = 1;
+        do
+        {
+            Console.WriteLine(i); // Prints numbers from 1 to 5
+            i++;
+        } while (i <= 5);
+
+
+
     }
 }
 
