@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 class Program
 {
     static int AddNumbers(int number1, int number2)
@@ -119,16 +120,114 @@ class Program
             Console.WriteLine(g); 
             g++;
         }
+        List<double> yournumbers = new List<double>();
+        Console.WriteLine("Enter numbers for the list. Type 'done' to finish:");
 
-        Console.WriteLine("Another way");
-
-        int i = 1;
-        do
+        while (true)
         {
-            Console.WriteLine(i); // Prints numbers from 1 to 5
-            i++;
-        } while (i <= 5);
+            Console.Write("Enter a number (or 'done' to finish): ");
+            string input = Console.ReadLine();
 
+            if (input.ToLower() == "done")
+                break;
+
+            if (double.TryParse(input, out double number))
+            {
+                yournumbers.Add(number);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+        }
+
+        if (yournumbers.Count == 0)
+        {
+            Console.WriteLine("No numbers entered. Exiting program.");
+            return;
+        }
+
+       
+        Console.WriteLine("\nChoose an operation:");
+        Console.WriteLine("1. Addition (Sum)");
+        Console.WriteLine("2. Multiplication (Product)");
+        Console.WriteLine("3. Subtraction");
+        Console.WriteLine("4. Division");
+        Console.WriteLine("5. Maximum");
+        Console.WriteLine("6. Minimum");
+
+        int choice;
+        while (true)
+        {
+            Console.Write("Enter your choice (1-6): ");
+            if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= 6)
+                break;
+
+            Console.WriteLine("Invalid choice. Please enter a number between 1 and 6.");
+        }
+
+       
+        switch (choice)
+        {
+            case 1: 
+                double sum = 0;
+                foreach (double number in yournumbers)
+                {
+                    sum += number;
+                }
+                Console.WriteLine($"\nThe sum of the numbers is: {sum}");
+                break;
+
+            case 2: 
+                double product = 1;
+                foreach (double number in yournumbers)
+                {
+                    product *= number;
+                }
+                Console.WriteLine($"\nThe product of the numbers is: {product}");
+                break;
+
+            case 3: 
+                double difference = yournumbers[0];
+                for (int i = 1; i < yournumbers.Count; i++)
+                {
+                    difference -= yournumbers[i];
+                }
+                Console.WriteLine($"\nThe result of the subtraction is: {difference}");
+                break;
+
+            case 4: 
+                double quotient = yournumbers[0];
+                for (int i = 1; i < yournumbers.Count; i++)
+                {
+                    if (yournumbers[i] == 0)
+                    {
+                        Console.WriteLine("Division by zero detected. Operation aborted.");
+                        return;
+                    }
+                    quotient /= yournumbers[i];
+                }
+                Console.WriteLine($"\nThe result of the division is: {quotient}");
+                break;
+
+            case 5: 
+                double max = yournumbers[0];
+                foreach (double number in yournumbers)
+                {
+                    max = Math.Max(max, number);
+                }
+                Console.WriteLine($"\nThe maximum number is: {max}");
+                break;
+
+            case 6: 
+                double min = yournumbers[0];
+                foreach (double number in yournumbers)
+                {
+                    min = Math.Min(min, number);
+                }
+                Console.WriteLine($"\nThe minimum number is: {min}");
+                break;
+        }
 
 
     }
