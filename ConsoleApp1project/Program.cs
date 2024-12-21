@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 class Program
@@ -8,7 +9,7 @@ class Program
     {
         return number1 + number2;
     }
-
+    static List<string> tasks = new List<string>();
     static void Main(string[] args)
     {
         // Array Example
@@ -227,8 +228,113 @@ class Program
                 }
                 Console.WriteLine($"\nThe minimum number is: {min}");
                 break;
+
         }
 
+        while (true)
+        {
+            Console.WriteLine("\nTodo List App");
+            Console.WriteLine("1. View Tasks");
+            Console.WriteLine("2. Add Task");
+            Console.WriteLine("3. Edit Task");
+            Console.WriteLine("4. Delete Task");
+            Console.WriteLine("5. Exit");
+            Console.Write("Choose an option: ");
+
+            string choices = Console.ReadLine();
+
+            switch (choices)
+            {
+                case "1":
+                    ViewTasks();
+                    break;
+                case "2":
+                    AddTask();
+                    break;
+                case "3":
+                    EditTask();
+                    break;
+                case "4":
+                    DeleteTask();
+                    break;
+                case "5":
+                    Console.WriteLine("Exiting the app. Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    static void ViewTasks()
+    {
+        Console.WriteLine("\nYour Tasks:");
+        if (tasks.Count == 0)
+        {
+            Console.WriteLine("No tasks available. Add some!");
+        }
+        else
+        {
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {tasks[i]}");
+            }
+        }
+    }
+
+    static void AddTask()
+    {
+        Console.Write("\nEnter the task: ");
+        string newTask = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(newTask))
+        {
+            tasks.Add(newTask);
+            Console.WriteLine("Task added successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Task cannot be empty. Try again.");
+        }
+    }
+
+    static void EditTask()
+    {
+        ViewTasks();
+        Console.Write("\nEnter the task number to edit: ");
+        if (int.TryParse(Console.ReadLine(), out int taskNumber) && taskNumber > 0 && taskNumber <= tasks.Count)
+        {
+            Console.Write("Enter the new task description: ");
+            string updatedTask = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(updatedTask))
+            {
+                tasks[taskNumber - 1] = updatedTask;
+                Console.WriteLine("Task updated successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Task cannot be empty. Try again.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid task number. Try again.");
+        }
+    }
+
+    static void DeleteTask()
+    {
+        ViewTasks();
+        Console.Write("\nEnter the task number to delete: ");
+        if (int.TryParse(Console.ReadLine(), out int taskNumber) && taskNumber > 0 && taskNumber <= tasks.Count)
+        {
+            tasks.RemoveAt(taskNumber - 1);
+            Console.WriteLine("Task deleted successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Invalid task number. Try again.");
+        }
 
     }
 }
