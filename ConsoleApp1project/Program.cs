@@ -336,6 +336,61 @@ class Program
             Console.WriteLine("Invalid task number. Try again.");
         }
 
+        static void SearchTasks(List<string> tasks)
+        {
+            Console.Write("\nEnter a keyword to search: ");
+            string keyword = Console.ReadLine();
+
+            var filteredTasks = tasks
+                .Where(task => task.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (filteredTasks.Count > 0)
+            {
+                Console.WriteLine("\nSearch Results:");
+                foreach (var task in filteredTasks)
+                {
+                    Console.WriteLine($"- {task}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nNo tasks found with the given keyword.");
+            }
+        }
+
+
+        class Task
+    {
+        public string Description { get; set; }
+        public string Priority { get; set; } // e.g., High, Medium, Low
+    }
+
+
+    static void FilterTasksByPriority(List<Task> tasks)
+        {
+            Console.Write("\nEnter priority to filter (High, Medium, Low): ");
+            string priority = Console.ReadLine();
+
+            var filteredTasks = tasks
+                .Where(task => task.Priority.Equals(priority, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (filteredTasks.Count > 0)
+            {
+                Console.WriteLine($"\nTasks with {priority} priority:");
+                foreach (var task in filteredTasks)
+                {
+                    Console.WriteLine($"- {task.Description} [{task.Priority}]");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"\nNo tasks found with {priority} priority.");
+            }
+        }
+
+
     }
 }
 
